@@ -1,48 +1,38 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
-import Slide from './Slide'; // Import your Slide component
-import SlideQ from './Slide'; // Import your SlideQ component
+import Slide from './Slide';
 
 const Slideshow = () => {
-    const [start, setStart] = useState(false);
     const [currentSlide, setCurrentSlide] = useState(0); // Track the current slide
-    const navigate = useNavigate();
 
-    const images = [
-        'image1.jpg',
-        'image2.jpg',
-        'image3.jpg',
-        // Add more image URLs here
+    const slides = [
+        {
+            image: 'https://d32ijn7u0aqfv4.cloudfront.net/wp/wp-content/uploads/raw/SOBK0422040_1560x880_desktop.jpg',
+            topic: "test",
+            question: 'Question 1',
+        },
+        {
+            image: 'https://www.oncourselearning.com/wp-content/uploads/2021/04/Financial_Literacy_BLOG.jpg',
+            topic: "test",
+            question: 'Question 2',
+        },
+        {
+            image: 'https://static01.nyt.com/images/2018/01/18/business/18Adviser/merlin_132485441_8a30c8a2-59fb-4f83-9e78-38d57720fcd6-jumbo.jpg?quality=75&auto=webp',
+            topic: "test",
+            question: 'Question 3',
+        },
+        // Add more slides here
     ];
-
-    const questions = [
-        'Question 1',
-        'Question 2',
-        'Question 3',
-        // Add more questions here
-    ];
-
-    const initiateSlides = () => {
-        setStart(true);
-        navigate('/slide');
-    };
-
-    const goToPreviousSlide = () => {
-        if (currentSlide > 0) {
-            setCurrentSlide(currentSlide - 1);
-        }
-    };
 
     const goToNextSlide = () => {
-        if (currentSlide < images.length - 1) {
+        if (currentSlide < slides.length - 1) {
             setCurrentSlide(currentSlide + 1);
         }
     };
 
     return (
         <div style={{
-            backgroundImage: 'url("https://bpb-us-w2.wpmucdn.com/u.osu.edu/dist/6/44792/files/2017/04/stock-market-3-21gyd1b.jpg")',
+            backgroundImage: `url("${slides[currentSlide].image}")`, // Display image as background
             backgroundSize: 'cover',
             height: '100vh',
             display: 'flex',
@@ -50,30 +40,11 @@ const Slideshow = () => {
             justifyContent: 'center',
             alignItems: 'center',
         }}>
-            {start ? (
-                // Render the Slide or Slide_Q component based on the current slide
-                currentSlide < images.length ? (
-                    <Slide images={images} currentSlide={currentSlide} />
-                ) : (
-                    <SlideQ question={questions[currentSlide - images.length]} />
-                )
-            ) : (
-                <div>
-                    <Button variant="contained" color="primary" onClick={initiateSlides}>
-                        Start Slides
-                    </Button>
-                </div>
-            )}
-            {start && (
-                <div style={{ marginTop: '20px' }}>
-                    <Button variant="contained" color="primary" onClick={goToPreviousSlide}>
-                        Previous
-                    </Button>
-                    <Button variant="contained" color="primary" onClick={goToNextSlide}>
-                        Next
-                    </Button>
-                </div>
-            )}
+            <Slide
+                currentSlide={currentSlide}
+                slide={slides[currentSlide]}
+                goToNextSlide={goToNextSlide}
+            />
         </div>
     );
 };
