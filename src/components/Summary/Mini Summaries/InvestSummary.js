@@ -5,7 +5,7 @@ import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 
-const Index = () => {
+const InvestSummary = ({goToNextSlide}) => {
     const [start, setStart] = React.useState(false);
     const navigate = useNavigate();
 
@@ -55,7 +55,7 @@ const Index = () => {
                             <Button
                                 variant="contained"
                                 color="primary"
-                                onClick={initiateSlides}
+                                onClick={goToNextSlide}
                                 style={{
                                     padding: '12px 26px',
                                     borderRadius: '4px',
@@ -74,4 +74,4 @@ const Index = () => {
     );
 };
 
-export default Index;
+export default InvestSummary;

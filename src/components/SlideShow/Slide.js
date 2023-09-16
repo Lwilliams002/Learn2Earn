@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import './Slide.css';
 import { Slider } from '@mui/material';
+import BankSummary from '../Summary/Mini Summaries/BankSummary';
+import InvestSummary from '../Summary/Mini Summaries/InvestSummary';
 
-const Slide = ({ currentSlide, slide, goToNextSlide }) => {
+let arrow = "<";
+const Slide = ({ currentSlide, slide, goToNextSlide, goToPrevSlide }) => {
     const [selectedChoice, setSelectedChoice] = useState(null);
 
     const handleChoiceChange = (choice) => {
@@ -12,6 +15,8 @@ const Slide = ({ currentSlide, slide, goToNextSlide }) => {
     const valuetext = (value) => {
         return `${value}°C`;
     };
+    // parse es-linter
+
 
     return (
         <>
@@ -53,7 +58,19 @@ const Slide = ({ currentSlide, slide, goToNextSlide }) => {
                 </div>
             </div>
             {/*TODO implement back button Should only be display after first question and should be removed when a new section gets started */}
-            <button className="next-button" onClick={goToNextSlide}>></button>
+            <div>
+                {slide.prev === 0 ? (
+                    <button className="next-button" onClick={goToNextSlide}>></button>
+                ) : slide.prev === 1 ? (
+                    <>
+                        <button className="next-button" onClick={goToNextSlide}>></button>
+                        <button className="previous-button" onClick={goToPrevSlide}>{arrow}</button>
+                    </>
+                ) : null}
+            </div>
+
+
+
         </>
     );
 };
