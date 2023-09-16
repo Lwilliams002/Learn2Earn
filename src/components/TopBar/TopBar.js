@@ -1,10 +1,17 @@
 import React from 'react';
 import './TopBar.css';
 
-const TopBar = ({ currentSlide }) => {
+const TopBar = ({ currentSlideIndex, totalSlides }) => {
+    const segments = Array.from({ length: totalSlides }, (_, i) => i);
+
     return (
         <div className="top-bar">
-            <h1>Current Slide: {currentSlide}</h1>
+            {segments.map((_, i) => (
+                <div
+                    key={i}
+                    className={`progress-segment ${i <= currentSlideIndex ? 'filled' : ''}`}
+                ></div>
+            ))}
         </div>
     );
 };
