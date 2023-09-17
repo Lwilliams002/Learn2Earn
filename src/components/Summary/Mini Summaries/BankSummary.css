@@ -1,0 +1,19 @@
+.flex-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.flex-item-left {
+    flex: 1;
+}
+
+.flex-item-right {
+    padding-left: 50px;
+    flex: 2;
+}
+
+.chart-container {
+
+    height: 400px; /* Or whatever height you want */
+    width: 100%;
+}

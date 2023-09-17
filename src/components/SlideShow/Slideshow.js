@@ -5,7 +5,7 @@ import BankSummary from "../Summary/Mini Summaries/BankSummary";
 import InvestSummary from "../Summary/Mini Summaries/InvestSummary";
 
 const Slideshow = () => {
-    const [currentSlide, setCurrentSlide] = useState(0); // Track the current slide
+    const [currentSlide, setCurrentSlide] = useState(0);
 
     // TODO How are answers going to be stored ?
     const slides = [
@@ -123,17 +123,31 @@ const Slideshow = () => {
             setCurrentSlide(currentSlide + 1);
         }
     };
+    const goToPrevSlide = () => {
+        if (currentSlide > 0) {
+            setCurrentSlide(currentSlide - 1);
+        }
+    };
+    const navigate = useNavigate();
 
     const renderContent = () => {
         const current = slides[currentSlide];
 
-        if (current.prev === 2) {
+        if (current.prev === 0) {
+            return <BankIntro goToNextSlide={goToNextSlide}/>;
+        }
+
+        if (current.prev === 3) {
             return <BankSummary goToNextSlide={goToNextSlide} />;
         }
-        if (current.prev === 3) {
-            return <InvestSummary goToNextSlide={goToNextSlide}/>;
+
+        if (current.prev === 4) {
+            return <InvestSummary goToNextSlide={goToNextSlide} />;
         }
-        // if (current.prev )
+
+        if (current.prev === 5) {
+            return <BudgetTips goToNextSlide={goToNextSlide} />;
+        }
 
         return (
             <Slide
@@ -144,6 +158,8 @@ const Slideshow = () => {
             />
         );
     };
+
+    const current = slides[currentSlide]; // Get the current slide details
 
     return (
         <div style={{
@@ -157,8 +173,23 @@ const Slideshow = () => {
         }}>
             <TopBar currentSlideIndex={currentSlide} totalSlides={slides.length} />
             {renderContent()}
+            <div>
+                {current.prev === 1 || current.prev === 3 || current.prev === 4 || current.prev === 5 ? (
+                    <button className="next-button" onClick={goToNextSlide}>></button>
+                ) : current.prev === 2 ? (
+                    <>
+                        <button className="next-button" onClick={goToNextSlide}>></button>
+                        <button className="previous-button" onClick={goToPrevSlide}>{"<"}</button>
+                    </>
+                ) : null}
+            </div>
         </div>
     );
 };
 
 export default Slideshow;
+
+
+
+
+

@@ -1,73 +1,98 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ResponsiveLine } from '@nivo/line';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
+import './BankSummary.css';
 
-const BankSummary = ({goToNextSlide}) => {
-    const [start, setStart] = React.useState(false);
+
+
+const BankSummary = () => {
+    const [hoveredData, setHoveredData] = useState(null);
     const navigate = useNavigate();
 
+    const initiateSlides = () => {
+        navigate('/slideshow');
 
+    };
+
+
+    const data = [
+        {
+            id: 'Monthly Payment',
+            data: [
+                { x: 'Jan', y: 600 },
+                { x: 'Feb', y: 650 },
+                { x: 'Mar', y: 700 },
+                { x: 'Apr', y: 750 },
+                { x: 'May', y: 800 },
+                { x: 'Jun', y: 850 },
+                { x: 'Jul', y: 900 },
+                { x: 'Aug', y: 950 },
+                { x: 'Sep', y: 1000 },
+                { x: 'Oct', y: 1050 },
+                { x: 'Nov', y: 1100 },
+                { x: 'Dec', y: 1150 },
+            ],
+        },
+    ];
+
+
+    const handleMouseMove = (point) => {
+        const month = point.data.x;
+        const monthlyPayment = point.data.y.toFixed(2);
+        setHoveredData({ month, monthlyPayment });
+    };
 
     return (
-        <div
-            style={{
-                backgroundImage:
-                    'url("https://bpb-us-w2.wpmucdn.com/u.osu.edu/dist/6/44792/files/2017/04/stock-market-3-21gyd1b.jpg")',
-                backgroundSize: 'cover',
-                height: '100vh',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                backdropFilter: 'blur(30px)',
-            }}
-        >
-            <Container
-                style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    height: '100vh',
-                    background: 'linear-gradient(251deg, #00b8ff52 -53%, rgba(255, 255, 255, 0) 65%)',
-                }}
-            >
-                <Paper
-                    elevation={3}
-                    style={{
-                        padding: '30px 60px',
-                        textAlign: 'center',
-                    }}
-                >
-                    {start ? (
-                        <div>Your slides will go here</div>
-                    ) : (
-                        <>
-                            <Typography variant="h5" gutterBottom style={{ margin: '0', fontSize: '42px', textShadow: '1px 2px 0 rgba(0, 0, 0, 0.35)' }}>
-                                Welcome to Financial 101
-                            </Typography>
-                            <Typography variant="body1" paragraph style={{ opacity: 0.8, fontWeight: 300 }}>
-                                The purpose of this web app is to gather what knowledge on the topics in finances and provide knowledge so you can learn
-                            </Typography>
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                onClick={goToNextSlide}
-                                style={{
-                                    padding: '12px 26px',
-                                    borderRadius: '4px',
-                                    fontSize: '18px',
-                                    fontWeight: 500,
-                                    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.3)',
-                                }}
-                            >
-                                Start Learning
-                            </Button>
-                        </>
+        <div>
+            <div className="flex-container">
+                <div className="flex-item-left">
+                    {/* Credit Score Information */}
+                    <Typography variant="h5" gutterBottom>
+                        Credit Score Information
+                    </Typography>
+                    <Typography variant="body1" paragraph>
+                        Your credit score affects your monthly payments...
+                    </Typography>
+                </div>
+
+                    {/* Interactive Chart */}
+                <div className="flex-item-right">
+                    {hoveredData && (
+                        <div>
+                            Month: {hoveredData.month}, Monthly Payment: ${hoveredData.monthlyPayment}
+                        </div>
                     )}
-                </Paper>
-            </Container>
+                        <div className="chart-container">
+                            <ResponsiveLine
+                                data={data}
+                                margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
+                                enablePoints={true}
+                                enableSlices={false}
+                                pointSize={10}
+                                pointColor={{ theme: 'background' }}
+                                pointBorderWidth={2}
+                                pointBorderColor={{ from: 'serieColor' }}
+                                pointLabelYOffset={-12}
+                                useMesh={true}
+                                enableCrosshair={true}
+                                onMouseMove={handleMouseMove}
+                                tooltip={() => null}
+                            />
+                        </div>
+                </div>
+
+            </div>
+                    {/* More Information */}
+                    <Typography variant="h5" gutterBottom>
+                        More Information
+                    </Typography>
+                    <Typography variant="body1" paragraph>
+                        Additional details about interest rates and payments...
+                    </Typography>
         </div>
     );
 };
