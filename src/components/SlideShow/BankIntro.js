@@ -4,73 +4,64 @@ import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-
+import "./BankIntro.css"
+import MagicCard from "./Quiz/Card";
+import Emojislider from "./Quiz/Emojislider";
 const BankIntro = () => {
-    const [hoveredData, setHoveredData] = useState(null);
-    const [started, setStarted] = useState(false); // Add a state variable for tracking if the learning has
-    const navigate = useNavigate();
-
-    const initiateSlides = () => {
-        navigate('/slideshow');
-    };
 
     return (
-        <div
-            style={{
-                backgroundImage:
-                    'url("https://bpb-us-w2.wpmucdn.com/u.osu.edu/dist/6/44792/files/2017/04/stock-market-3-21gyd1b.jpg")',
-                backgroundSize: 'cover',
-                height: '100vh',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                backdropFilter: 'blur(30px)',
-            }}
-        >
-            <Container
-                style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    height: '100vh',
-                    background: 'linear-gradient(251deg, #00b8ff52 -53%, rgba(255, 255, 255, 0) 65%)',
-                }}
-            >
-                <Paper
-                    elevation={3}
-                    style={{
-                        padding: '30px 60px',
-                        textAlign: 'center',
-                    }}
-                >
-                    {started ? (
-                        <div>Your slides will go here</div>
-                    ) : (
-                        <>
-                            <Typography variant="h5" gutterBottom style={{ margin: '0', fontSize: '42px', textShadow: '1px 2px 0 rgba(0, 0, 0, 0.35)' }}>
+        <div>
+            <div className="flex-container">
+                <h2 className={"logo"}>LEARN2EARN</h2>
+                <div className="flex-mission-left">
+                    {/* Credit Score Information */}
+                    <Typography className="mission-header" variant="h3" gutterBottom>
+                        Our Mission Statement
+                    </Typography>
+                    <Typography className="mission-statement" variant="h6" paragraph>
+                        At learn2earn, we are dedicated to revolutionizing
+                        college students' financial perception and literacy.
+                        We dispel financial misconceptions and provide accessible
+                        resources to create a financially savvy college community,
+                        benefiting businesses and strengthening education. Join us in
+                        empowering the next generation for a financially stable future.
+                    </Typography>
+                    <p className={"company-quote"}>
+                        “Debt is a gift if leveraged correctly, so let it work for you and don’t work for debt.”-Chris Tate
+                    </p>
+                </div>
+                <div className="flex-prompt-right">
+                    <Typography className={"knowledge-title"} variant="h3" gutterBottom>
+                        Before we begin our Interactive Assessment
+                    </Typography>
+                    <div className="transparent-box-question">
+                                {/* Credit Score Information */}
+                        <div>
+                            <h2 className={"knowledge-caption"}>
+                                Rank your knowledge on these topics
+                            </h2>
+                        </div>
+                        <div>
+                            <h2 className={"knowledge-sub"}>
                                 Banking
-                            </Typography>
-                            <Typography variant="body1" paragraph style={{ opacity: 0.8, fontWeight: 300 }}>
-                                The purpose of this web app is to gather what knowledge on the topics in finances and provide knowledge so you can learn
-                            </Typography>
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                onClick={initiateSlides}
-                                style={{
-                                    padding: '12px 26px',
-                                    borderRadius: '4px',
-                                    fontSize: '18px',
-                                    fontWeight: 500,
-                                    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.3)',
-                                }}
-                            >
-                                Let's go
-                            </Button>
-                        </>
-                    )}
-                </Paper>
-            </Container>
+                            </h2>
+                            <Emojislider></Emojislider>
+                        </div>
+                        <div>
+                            <h2 className={"knowledge-sub"}>
+                                Investing
+                            </h2>
+                            <Emojislider></Emojislider>
+                        </div>
+                        <div>
+                            <h2 className={"knowledge-sub"}>
+                                Budgeting
+                            </h2>
+                            <Emojislider></Emojislider>
+                        </div>
+                        </div>
+                    </div>
+                </div>
         </div>
     );
 };

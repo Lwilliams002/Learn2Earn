@@ -1,0 +1,77 @@
+.flex-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.logo {
+    position: absolute;
+    top: -20px;
+    left: 10px;
+    letter-spacing: 10px;
+    font-size: 4rem;
+    text-align: center;
+}
+
+.flex-mission-left {
+    position: absolute;
+    flex: 1;
+    top: 15%;
+    left: 0;
+    margin-left: 50px;
+}
+
+.flex-prompt-right {
+    position: absolute;
+    top: 15%;
+    right: 0;
+    margin-right: 150px;
+    width: 40%; /* adjust width according to your needs */
+    display: flex;
+    flex-direction: column;
+    align-items: center;  /* Centered */
+    justify-content: center;  /* Centered */
+}
+
+.knowledge-title {
+    font-size: 3rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.knowledge-caption, .knowledge-sub {
+    text-align: center;
+}
+
+.mission-header {
+    font-size: 2rem;
+    font-weight: bold;
+    white-space: nowrap;
+    margin-top: 80px;
+    margin-left: 10px;
+}
+
+.company-quote {
+    position: absolute;
+    text-align: center;
+    font-style: italic;
+    bottom: -225px;
+}
+
+.mission-statement {
+    font-size: 1rem;
+    left: 50px;
+    width: 400px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    margin-left: 10px;
+}
+
+.transparent-box-question {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 5px 20px 20px;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    max-width: 70%;  /* Or whatever maximum width you prefer */
+    margin: auto;  /* Take full width of the parent */
+}

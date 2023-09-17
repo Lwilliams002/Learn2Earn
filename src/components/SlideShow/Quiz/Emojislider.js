@@ -30,7 +30,7 @@ const EmojiSlider = () => {
                 step={50} // Increment by 50
                 min={0}
                 max={100}
-                valueLabelDisplay="auto"
+                valueLabelDisplay="off"
             />
             <div style={{ textAlign: 'center', fontSize: '2rem' }}>{emojis[emojiIndex]}</div>
         </div>

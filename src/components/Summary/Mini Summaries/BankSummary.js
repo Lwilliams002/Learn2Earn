@@ -1,109 +1,113 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { ResponsiveLine } from '@nivo/line';
-import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
-import Paper from '@mui/material/Paper';
+import React, { useState, useEffect } from 'react';
+import { ResponsiveBar } from '@nivo/bar'; // Import ResponsiveBar
 import Typography from '@mui/material/Typography';
 import './BankSummary.css';
 
+const calculateMonthlyPayment = (principal, interestRate, months) => {
+    const rate = interestRate / 100 / 12;
+    return (principal * rate) / (1 - Math.pow(1 + rate, -months));
+};
 
+const generateMonthlyPayments = (principal, interestRate) => {
+    const months = 12;
+    const monthlyPayment = calculateMonthlyPayment(principal, interestRate, months);
+    return {
+        x: interestRate.toFixed(2),
+        y: parseFloat(monthlyPayment.toFixed(2)),
+    };
+};
 
 const BankSummary = () => {
-    const [hoveredData, setHoveredData] = useState(null);
-    const navigate = useNavigate();
+    const [creditScore, setCreditScore] = useState(600);
+    const [barChartData, setBarChartData] = useState([]);
+    const badCreditScore = 300;
+    const goodCreditScore = 850;
 
-    const initiateSlides = () => {
-        navigate('/slideshow');
+    const calculateMonthlyPaymentsForScores = (scores) => {
+        return scores.map(score => {
+            const interestRate = 5 - (score - 600) / 100;
+            const monthlyPaymentData = generateMonthlyPayments(20000, interestRate);
 
+            let label;
+            switch (score) {
+                case badCreditScore:
+                    label = 'Bad Credit';
+                    break;
+                case goodCreditScore:
+                    label = 'Good Credit';
+                    break;
+                default:
+                    label = 'Your Credit';
+            }
+            return {
+                credit: label,
+                payment: monthlyPaymentData.y
+            };
+        });
     };
 
-
-    const data = [
-        {
-            id: 'Monthly Payment',
-            data: [
-                { x: 'Jan', y: 1000 },
-                { x: 'Feb', y: 2000 },
-                { x: 'Mar', y: 3000 },
-                { x: 'Apr', y: 4000 },
-                { x: 'May', y: 5000 },
-                { x: 'Jun', y: 6000 },
-                { x: 'Jul', y: 7000 },
-                { x: 'Aug', y: 8000 },
-                { x: 'Sep', y: 9000 },
-                { x: 'Oct', y: 10000 },
-                { x: 'Nov', y: 11000 },
-                { x: 'Dec', y: 11500 },
-            ],
-        },
-    ];
-
-
-    const handleMouseMove = (point) => {
-        const month = point.data.x;
-        const monthlyPayment = point.data.y.toFixed(2);
-        setHoveredData({ month, monthlyPayment });
-    };
+    useEffect(() => {
+        setBarChartData(calculateMonthlyPaymentsForScores([badCreditScore, goodCreditScore, creditScore]));
+    }, [creditScore]);
 
     return (
-        <div>
+        <div className="transparent-box">
             <div className="flex-container">
                 <div className="flex-item-left">
-                    {/* Credit Score Information */}
                     <Typography variant="h5" gutterBottom>
                         Credit Score Information
                     </Typography>
                     <Typography variant="body1" paragraph>
-                        Your credit score is a crucial factor that financial institutions consider when determining
-                        your eligibility for loans, interest rates, and other credit facilities. A higher credit
-                        score can qualify you for lower interest rates, saving you money in the long run.
+                        Your credit score is more than just a number; it's the key that unlocks financial freedom. The higher your score, the more favorable your interest rates will be. Conversely, a lower score can mean higher rates, costing you more in the long run.
                     </Typography>
                     <Typography variant="body1" paragraph>
-                        Input your credit score below to see how it affects your monthly payments:
+                        The interactive chart to the right serves as a guide to monthly payments based on different credit scores. You'll notice three bars—representing Bad Credit, Good Credit, and Your Credit. Feel free to adjust your score below to visualize its impact on your monthly payments.
+                    </Typography>
+                    <Typography variant="body1" paragraph>
+                        Imagine you're planning to take out a $20,000 loan to buy a car, renovate your home, or perhaps even launch a small business. This chart can help you predict what your monthly costs might be, based on your current credit status.
                     </Typography>
                     <label>Credit Score: </label>
                     <input
                         type="number"
+                        value={creditScore}
+                        onChange={(e) => setCreditScore(e.target.value)}
                         placeholder="Enter your credit score"
                     />
                 </div>
 
-                    {/* Interactive Chart */}
                 <div className="flex-item-right">
-                    {hoveredData && (
-                        <div className={"flex-item-center"}>
-                            Month: {hoveredData.month}, Monthly Payment: ${hoveredData.monthlyPayment}
-                        </div>
-                    )}
-                        <div className="chart-container">
-                            <ResponsiveLine
-                                data={data}
-                                margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
-                                enablePoints={true}
-                                enableSlices={false}
-                                pointSize={10}
-                                pointColor={{ theme: 'background' }}
-                                pointBorderWidth={2}
-                                pointBorderColor={{ from: 'serieColor' }}
-                                pointLabelYOffset={-12}
-                                useMesh={true}
-                                enableCrosshair={true}
-                                onMouseMove={handleMouseMove}
-                                tooltip={() => null}
-                            />
-                        </div>
+                    <div className="chart-container">
+                        <ResponsiveBar
+                            data={barChartData}
+                            keys={['payment']}
+                            indexBy="credit"
+                            margin={{ top: 0, right: 130, bottom: 20, left: 60 }}
+                            padding={0.3}
+                            valueScale={{
+                                type: 'linear',
+                                min: "auto",
+                                max: 1800
+                            }}
+                            axisLeft={{
+                                tickValues: Array.from({ length: 19 }, (_, i) => i * 100),
+                                tickPadding: 5
+                            }}
+                            colors={(d) => {
+                                switch (d.indexValue) {
+                                    case 'Bad Credit':
+                                        return 'red';
+                                    case 'Good Credit':
+                                        return 'green';
+                                    case 'Your Credit':
+                                        return 'blue';
+                                    default:
+                                        return '#ccc';
+                                }
+                            }}
+                            enableLabel={false}
+                        />
+                    </div>
                 </div>
-
-            </div>
-                    {/* More Information */}
-            <div className={"flex-item-left"}>
-                    <Typography variant="h5" gutterBottom>
-                        More Information
-                    </Typography>
-                    <Typography variant="body1" paragraph>
-                        Additional details about interest rates and payments...
-                    </Typography>
             </div>
         </div>
     );

@@ -1,75 +1,73 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
-import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
+import './BudgetTips.css';
+import { ResponsivePie } from '@nivo/pie';
 
-const BudgetTips = ({goToNextSlide}) => {
-    const [start, setStart] = React.useState(false);
-    const navigate = useNavigate();
-
-    const initiateSlides = () => {
-        navigate('/slideshow');
-    };
+const BudgetTips = () => {
+    const data = [
+        {
+            id: 'Fixed Expenses (Needs)',
+            value: 50,
+        },
+        {
+            id: 'Flexible Spending (Wants)',
+            value: 30,
+        },
+        {
+            id: 'Savings and Debt Repayment',
+            value: 20,
+        },
+    ];
 
     return (
-        <div
-            style={{
-                backgroundImage:
-                    'url("https://bpb-us-w2.wpmucdn.com/u.osu.edu/dist/6/44792/files/2017/04/stock-market-3-21gyd1b.jpg")',
-                backgroundSize: 'cover',
-                height: '100vh',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                backdropFilter: 'blur(30px)',
-            }}
-        >
-            <Container
-                style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    height: '100vh',
-                    background: 'linear-gradient(251deg, #00b8ff52 -53%, rgba(255, 255, 255, 0) 65%)',
-                }}
-            >
-                <Paper
-                    elevation={3}
-                    style={{
-                        padding: '30px 60px',
-                        textAlign: 'center',
-                    }}
-                >
-                    {start ? (
-                        <div>Your slides will go here</div>
-                    ) : (
-                        <>
-                            <Typography variant="h5" gutterBottom style={{ margin: '0', fontSize: '42px', textShadow: '1px 2px 0 rgba(0, 0, 0, 0.35)' }}>
-                                Welcome to Financial 101
-                            </Typography>
-                            <Typography variant="body1" paragraph style={{ opacity: 0.8, fontWeight: 300 }}>
-                                The purpose of this web app is to gather what knowledge on the topics in finances and provide knowledge so you can learn
-                            </Typography>
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                onClick={goToNextSlide}
-                                style={{
-                                    padding: '12px 26px',
-                                    borderRadius: '4px',
-                                    fontSize: '18px',
-                                    fontWeight: 500,
-                                    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.3)',
-                                }}
-                            >
-                                Start Learning
-                            </Button>
-                        </>
-                    )}
-                </Paper>
-            </Container>
+        <div className="outer-container">
+            <div className="transparent-box">
+                <div className="flex-container">
+                    <div className="flex-item-left">
+                        <Typography variant="h5" gutterBottom>
+                            Budgeting Tips for College Students
+                        </Typography>
+                        <Typography variant="body1" paragraph>
+                            The 50-30-20 rule is a budgeting strategy in which you divide your monthly income into three categories: fixed expenses (needs),
+                            flexible spending (wants), and savings and debt repayment. This strategy is useful because you divide half of your monthly income
+                            into essentials such as groceries, housing, utilities, health insurance, and car payments; you divide 30% of your monthly income into products
+                            for your enjoyment; and you invest in the remaining 20% if you have no debt to repay.
+                        </Typography>
+                    </div>
+                    <div className="flex-item-right">
+                        <div className="chart-container">
+                            <div className="chart-inner-container">
+                                <ResponsivePie
+                                    data={data}
+                                    margin={{ top: 10, right: 10, bottom: 10, left: 10 }}
+                                    innerRadius={0}
+                                    padAngle={0.7}
+                                    cornerRadius={3}
+                                    colors={{ scheme: 'category10' }}
+                                    borderWidth={1}
+                                    borderColor={{ from: 'color', modifiers: [['darker', 0.2]] }}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="bullet-point-container">
+                <ul className="bullet-point-list">
+                    <li>Track Expenses - Record monthly spending, including rent, groceries, and discretionary items.</li>
+                    <li>Financial Education - Access resources for money management, investing, and debt reduction.</li>
+                    <li>Analyze Spending - Review spending trends to identify areas for adjustment.</li>
+                </ul>
+                <ul className="bullet-point-list">
+                    <li>Emergency Fund - Build a safety net for unexpected expenses; track your savings goal.</li>
+                    <li>Debt Reduction - Calculate how extra payments can shorten loan repayment and save on interest.</li>
+                    <li>Income Tracking - Monitor sources of income, such as part-time jobs or scholarships.</li>
+                </ul>
+                <ul className="bullet-point-list">
+                    <li>Mobile Access - Access your budget tool on your smartphone for convenience.</li>
+                    <li>Feedback Welcomed - Share your thoughts and suggestions for tool improvement.</li>
+                </ul>
+            </div>
         </div>
     );
 };

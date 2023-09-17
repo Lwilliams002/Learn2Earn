@@ -6,6 +6,7 @@ import InvestSummary from '../Summary/Mini Summaries/InvestSummary';
 import BankIntro from "./BankIntro";
 import BudgetTips from "../Summary/Mini Summaries/BudgetTips";
 import EmojiSlider from './Quiz/Emojislider';
+import Summary from "../Summary/Summary";
 
 const Slide = ({ currentSlide, slide, goToNextSlide, goToPrevSlide }) => {
     const [selectedChoice, setSelectedChoice] = useState(null);
@@ -20,7 +21,8 @@ const Slide = ({ currentSlide, slide, goToNextSlide, goToPrevSlide }) => {
 
     return (
         <>
-            {slide.prev <= 2 ? (
+            {slide.prev <= 2 | slide.prev === 6 ? (
+                <div className={"transparent-box-question"}>
                 <div className="slide">
                     <div className="slide-content">
                         <h2 className="topic">{slide.topic}</h2>
@@ -28,7 +30,7 @@ const Slide = ({ currentSlide, slide, goToNextSlide, goToPrevSlide }) => {
                         {slide.type === "slider" ? (
                             <EmojiSlider /> // Use the EmojiSlider component
                         ) : slide.type === "multiple choice" ? (
-                            <div>
+                            <div className="radio-container">
                                 {slide.choices.map((choice, index) => (
                                     <label key={index}>
                                         <input
@@ -37,12 +39,14 @@ const Slide = ({ currentSlide, slide, goToNextSlide, goToPrevSlide }) => {
                                             checked={selectedChoice === choice}
                                             onChange={() => handleChoiceChange(choice)}
                                         />
+                                        <span className="custom-radio"></span>
                                         {choice}
                                     </label>
                                 ))}
                             </div>
                         ) : null}
                     </div>
+                </div>
                 </div>
             ) : slide.prev === 3 ? (
                 <div>
@@ -55,6 +59,10 @@ const Slide = ({ currentSlide, slide, goToNextSlide, goToPrevSlide }) => {
             ) : slide.prev === 5 ? (
                 <div>
                     <BudgetTips />
+                </div>
+            ) : slide.prev === 6 ? (
+                <div>
+                    <Summary />
                 </div>
             ) : null}
         </>

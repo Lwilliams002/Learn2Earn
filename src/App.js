@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import './App.css';
-import Index from "./scenes";
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import Slideshow from "./components/SlideShow/Slideshow";
 
@@ -17,7 +16,6 @@ const App = () => {
   return (
           <Router>
               <Routes>
-                  <Route path="/" element={<Index> </Index>} />
                   <Route path="/slideshow" element={<Slideshow></Slideshow>} />
               </Routes>
           </Router>
