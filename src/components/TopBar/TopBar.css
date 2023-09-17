@@ -1,9 +1,10 @@
 .top-bar {
     position: absolute;
     top: 0;
+    padding-top: 10px;
     left: 0;
     width: 100%;
-    height: 5px;
+    height: 10px;
     background-color: transparent; /* To show the background */
     display: flex;
     justify-content: space-between;

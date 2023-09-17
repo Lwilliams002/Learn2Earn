@@ -23,18 +23,18 @@ const BankSummary = () => {
         {
             id: 'Monthly Payment',
             data: [
-                { x: 'Jan', y: 600 },
-                { x: 'Feb', y: 650 },
-                { x: 'Mar', y: 700 },
-                { x: 'Apr', y: 750 },
-                { x: 'May', y: 800 },
-                { x: 'Jun', y: 850 },
-                { x: 'Jul', y: 900 },
-                { x: 'Aug', y: 950 },
-                { x: 'Sep', y: 1000 },
-                { x: 'Oct', y: 1050 },
-                { x: 'Nov', y: 1100 },
-                { x: 'Dec', y: 1150 },
+                { x: 'Jan', y: 1000 },
+                { x: 'Feb', y: 2000 },
+                { x: 'Mar', y: 3000 },
+                { x: 'Apr', y: 4000 },
+                { x: 'May', y: 5000 },
+                { x: 'Jun', y: 6000 },
+                { x: 'Jul', y: 7000 },
+                { x: 'Aug', y: 8000 },
+                { x: 'Sep', y: 9000 },
+                { x: 'Oct', y: 10000 },
+                { x: 'Nov', y: 11000 },
+                { x: 'Dec', y: 11500 },
             ],
         },
     ];
@@ -55,14 +55,24 @@ const BankSummary = () => {
                         Credit Score Information
                     </Typography>
                     <Typography variant="body1" paragraph>
-                        Your credit score affects your monthly payments...
+                        Your credit score is a crucial factor that financial institutions consider when determining
+                        your eligibility for loans, interest rates, and other credit facilities. A higher credit
+                        score can qualify you for lower interest rates, saving you money in the long run.
                     </Typography>
+                    <Typography variant="body1" paragraph>
+                        Input your credit score below to see how it affects your monthly payments:
+                    </Typography>
+                    <label>Credit Score: </label>
+                    <input
+                        type="number"
+                        placeholder="Enter your credit score"
+                    />
                 </div>
 
                     {/* Interactive Chart */}
                 <div className="flex-item-right">
                     {hoveredData && (
-                        <div>
+                        <div className={"flex-item-center"}>
                             Month: {hoveredData.month}, Monthly Payment: ${hoveredData.monthlyPayment}
                         </div>
                     )}
@@ -87,12 +97,14 @@ const BankSummary = () => {
 
             </div>
                     {/* More Information */}
+            <div className={"flex-item-left"}>
                     <Typography variant="h5" gutterBottom>
                         More Information
                     </Typography>
                     <Typography variant="body1" paragraph>
                         Additional details about interest rates and payments...
                     </Typography>
+            </div>
         </div>
     );
 };

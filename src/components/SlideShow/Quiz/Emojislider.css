@@ -1,0 +1,27 @@
+.emoji-slider .MuiSlider-rail {
+    background-color: #f5f5f5; /* Set a light gray background color for the rail */
+}
+
+.emoji-slider .MuiSlider-thumb {
+    background-color: #fff; /* Set the thumb (slider handle) background color to white */
+    border: 2px solid #000; /* Add a bordered outline to the thumb */
+    z-index: 2; /* Ensure the thumb is on top of the track and rail */
+}
+
+.emoji-slider .MuiSlider-track {
+    background-color: #f5f5f5; /* Set a light gray background color for the track */
+    border: 2px solid #000; /* Add a bordered outline to the track */
+}
+
+/* Center the slider horizontally */
+.emoji-slider {
+    width: 80%;
+    margin: 0 auto;
+}
+
+/* Make the slider responsive */
+@media (max-width: 768px) {
+    .emoji-slider {
+        width: 100%;
+    }
+}

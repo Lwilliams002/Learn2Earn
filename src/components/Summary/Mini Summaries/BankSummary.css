@@ -4,6 +4,7 @@
 }
 
 .flex-item-left {
+    padding-left: 50px;
     flex: 1;
 }
 
@@ -12,8 +13,16 @@
     flex: 2;
 }
 
+.flex-item-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
 .chart-container {
 
     height: 400px; /* Or whatever height you want */
     width: 100%;
 }
+

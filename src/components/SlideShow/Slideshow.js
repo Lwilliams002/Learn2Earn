@@ -162,15 +162,8 @@ const Slideshow = () => {
     const current = slides[currentSlide]; // Get the current slide details
 
     return (
-        <div style={{
-            backgroundImage: `url("${slides[currentSlide]?.image || ''}")`,
-            backgroundSize: 'cover',
-            height: '100vh',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-        }}>
+        <div className="slideshow-background">
+
             <TopBar currentSlideIndex={currentSlide} totalSlides={slides.length} />
             {renderContent()}
             <div>
