@@ -11,6 +11,7 @@ import Summary from "../Summary/Summary";
 const Slide = ({ currentSlide, slide, goToNextSlide, goToPrevSlide }) => {
     const [selectedChoice, setSelectedChoice] = useState(null);
 
+
     const handleChoiceChange = (choice) => {
         setSelectedChoice(choice);
     };

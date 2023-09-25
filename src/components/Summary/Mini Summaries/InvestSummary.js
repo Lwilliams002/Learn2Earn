@@ -1,75 +1,118 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
-import Paper from '@mui/material/Paper';
+import React, { useState } from 'react';
 import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import './InvestSummary.css';
 
-const InvestSummary = ({goToNextSlide}) => {
-    const [start, setStart] = React.useState(false);
-    const navigate = useNavigate();
+// Please make sure that each term at index 'i' corresponds to its definition at the same index 'i'
+const terms = [
+    "Savings Account", "Assets", "Whole Life Insurance", "Universal Insurance",
+    "Compound Interest", "Long-term Investing", "Short-term Investing", "401K",
+    "Stocks Portfolio", "ETF (Exchange Traded Funds)"
+];
 
-    const initiateSlides = () => {
-        navigate('/slideshow');
+const definitions = [
+    "A savings account typically offered by a financial institution.",
+    "Various financial instruments and holdings that can generate income and grow in value, including stocks, bonds, real estate, and more.",
+    "A type of insurance that offers a combination of life insurance and an investment component.",
+    "An insurance policy that offers permanent coverage and the ability to accumulate cash value.",
+    "Earning interest on both the initial amount of money saved and any interest that is added to it over time.",
+    "The practice of buying and holding investments for an extended period, typically more than five years.",
+    "The practice of buying and holding investments for a short period, typically less than one year.",
+    "A tax-advantaged retirement savings plan typically offered by employers.",
+    "A diversified collection of individual stocks.",
+    "An investment fund traded on stock exchanges, holding assets such as stocks or bonds."
+];
+
+const InvestSummary = () => {
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [selectedTerm, setSelectedTerm] = useState(null);
+    const [selectedDefinition, setSelectedDefinition] = useState(null);
+    const [matches, setMatches] = useState({});
+    const [matchedTerms, setMatchedTerms] = useState([]);
+
+    const handleTermClick = (term) => {
+        setSelectedTerm(term);
+    };
+
+    const handleDefinitionClick = (definition) => {
+        setSelectedDefinition(definition);
+    };
+
+    const checkMatch = () => {
+        if (selectedTerm && selectedDefinition) {
+            const termIndex = terms.indexOf(selectedTerm);
+            const definitionIndex = definitions.indexOf(selectedDefinition);
+
+            if (termIndex === definitionIndex) {
+                setMatches({ ...matches, [selectedTerm]: selectedDefinition });
+                setMatchedTerms([...matchedTerms, selectedTerm]);
+            }
+            setSelectedTerm(null);
+            setSelectedDefinition(null);
+        }
+    };
+
+    const handleOpenDialog = () => {
+        setIsDialogOpen(true);
+    };
+
+    const handleCloseDialog = () => {
+        setIsDialogOpen(false);
     };
 
     return (
-        <div
-            style={{
-                backgroundImage:
-                    'url("https://bpb-us-w2.wpmucdn.com/u.osu.edu/dist/6/44792/files/2017/04/stock-market-3-21gyd1b.jpg")',
-                backgroundSize: 'cover',
-                height: '100vh',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                backdropFilter: 'blur(30px)',
-            }}
-        >
-            <Container
-                style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    height: '100vh',
-                    background: 'linear-gradient(251deg, #00b8ff52 -53%, rgba(255, 255, 255, 0) 65%)',
-                }}
-            >
-                <Paper
-                    elevation={3}
-                    style={{
-                        padding: '30px 60px',
-                        textAlign: 'center',
-                    }}
-                >
-                    {start ? (
-                        <div>Your slides will go here</div>
-                    ) : (
-                        <>
-                            <Typography variant="h5" gutterBottom style={{ margin: '0', fontSize: '42px', textShadow: '1px 2px 0 rgba(0, 0, 0, 0.35)' }}>
-                                Welcome to Financial 101
-                            </Typography>
-                            <Typography variant="body1" paragraph style={{ opacity: 0.8, fontWeight: 300 }}>
-                                The purpose of this web app is to gather what knowledge on the topics in finances and provide knowledge so you can learn
-                            </Typography>
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                onClick={goToNextSlide}
-                                style={{
-                                    padding: '12px 26px',
-                                    borderRadius: '4px',
-                                    fontSize: '18px',
-                                    fontWeight: 500,
-                                    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.3)',
-                                }}
-                            >
-                                Start Learning
-                            </Button>
-                        </>
-                    )}
-                </Paper>
-            </Container>
+        <div className="container" style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <div className={"title"}>
+                <Typography variant="h2" gutterBottom>
+                    Investing - Mix and Match Game
+                </Typography>
+            </div>
+
+
+            <div className="term-container" style={{ flex: 1 }}>
+                <Typography variant="h4">Terms</Typography>
+                {terms.map((term, index) => (
+                    <Button
+                        key={index}
+                        variant="outlined"
+                        disabled={matchedTerms && matchedTerms.includes(term)}
+                        className={selectedTerm && selectedTerm.includes(term) ? 'selected-term' : ''}
+                        style={{ backgroundColor: matchedTerms.includes(term) ? 'darkgray' : 'white' }}
+                        onClick={() => handleTermClick(term)}
+                    >
+                        {term}
+                    </Button>
+                ))}
+            </div>
+
+            <div className="definition-container" style={{ flex: 1 }}>
+                <Typography variant="h4">Definitions</Typography>
+                {definitions.map((definition, index) => (
+                    <Button key={index} variant="outlined" onClick={() => handleDefinitionClick(definition)}
+                            style={{ backgroundColor: selectedDefinition ? 'darkgray' : 'white' }}>
+                        {definition}
+                    </Button>
+                ))}
+                <Button variant="contained" color="primary" onClick={checkMatch} style={{ alignSelf: 'center' }}>
+                    Check Match
+                </Button>
+
+                <div className="matches-container" style={{ flex: 1 }}>
+                    <Typography variant="h6">Matches</Typography>
+                    {Object.keys(matches).map((term, index) => (
+                        <Typography key={index} variant="body1">
+                            {term} - {matches[term]}
+                        </Typography>
+                    ))}
+                </div>
+            </div>
+
+
+
         </div>
     );
 };

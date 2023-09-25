@@ -6,10 +6,17 @@ import Slideshow from "./components/SlideShow/Slideshow";
 
 
 const App = () => {
+  const [currentSlide, setCurrentSlide] = useState(1);
+  const [answers, setAnswers] = useState({});
+
+  const images = [
+      "https://bpb-us-w2.wpmucdn.com/u.osu.edu/dist/6/44792/files/2017/04/stock-market-3-21gyd1b.jpg",
+  ];
+
   return (
-          <Router basename={process.env.PUBLIC_URL}>
+          <Router>
               <Routes>
-                  <Route path="/" element={<Slideshow></Slideshow>} />
+                  <Route path="/slideshow" element={<Slideshow></Slideshow>} />
               </Routes>
           </Router>
 

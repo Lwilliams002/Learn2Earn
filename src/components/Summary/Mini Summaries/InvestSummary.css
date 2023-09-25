@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+/*body {*/
+/*    background: #170F1E;*/
+/*    display: grid;*/
+/*    height: 100vh;*/
+/*    place-items: center;*/
+/*    -webkit-font-smoothing: antialiased;*/
+/*    width: 100vw;*/
+/*}*/
+
+button {
+    animation: 1.5s ease infinite alternate running shimmer;
+    background: linear-gradient(90deg, #FFE27D 0%, #64E3FF 30%, #9192FF 85%);
+    background-size: 200% 100%;
+    border: none;
+    border-radius: 6px;
+    box-shadow: -2px -2px 10px rgba(255, 227, 126, 0.5), 2px 2px 10px rgba(144, 148, 255, 0.5);
+    color: #170F1E;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 670;
+    line-height: 24px;
+    overflow: hidden;
+    padding: 12px 24px;
+    position: relative;
+    text-decoration: none;
+    margin: 10px 10px !important;
+    transition: background-color 0.3s ease;
+
+    & svg {
+        left: -20px;
+        opacity: 0.5;
+        position: absolute;
+        top: -2px;
+        transition: 0.5s cubic-bezier(.5,-0.5,.5,1.5);
+    }
+
+    &:hover svg {
+        opacity: 0.8;
+        transform: translateX(50px) scale(1.5);
+    }
+
+    &:hover {
+        transform: rotate(-3deg);
+    }
+
+    &:active {
+        transform: scale(0.95) rotate(-3deg);
+    }
+
+}
+
+@keyframes shimmer {
+    to {
+        background-size: 100% 100%;
+        box-shadow: -2px -2px 6px rgba(255, 227, 126, 0.5), 2px 2px 6px rgba(144, 148, 255, 0.5);
+    }
+}
+
+.term-container,
+.definition-container {
+    flex: 1;
+    max-height: 400px;  /* set max height */
+    overflow-y: auto;  /* make it scrollable */
+}
+
+.container {
+    display: flex;
+    flex-direction: row; /* change to row to line them up horizontally */
+    justify-content: space-between;
+    align-items: start; /* align to the top */
+    padding: 20px;
+}
+.title{
+    position: absolute;
+    top: 0;
+    margin-top: 50px;
+    font-size: 5rem;
+}
+
+/* Style the buttons and their text */
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px; /* Add space above the buttons */
+}
+.matches-container {
+    flex: 1;
+    max-height: 100px; /* or whatever height that fits your design */
+    overflow-y: auto;
+}
+.button-left {
+    flex: 1;
+    text-align: center;
+    margin-right: 10px; /* Add space between the buttons */
+}
+
+.button-right {
+    flex: 1;
+    text-align: center;
+    margin-left: 10px; /* Add space between the buttons */
+}
+
+/* Style the text elements */
+.title-container {
+    color: #2c3e50;
+    font-size: 1.8rem;
+    position: absolute; /* Set position to absolute */
+    width: 400px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    top: 100px;
+    margin-left: 10px;
+}
+
+
+.text-container {
+    color: #2c3e50;
+    font-size: 1.8rem;
+    position: absolute; /* Set position to absolute */
+    width: 800px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    top: 300px;
+    margin-left: 10px; /* Add margin to the left for separation */
+    margin-bottom: 10px;
+}
+
+/* Style the dialog */
+.dialog-container {
+    color: #2c3e50;
+    font-size: 1.8rem;
+    position: absolute; /* Set position to absolute */
+    width: 400px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    margin-top: 50px;
+    margin-left: 10px;
+    /* Add any additional styling for the dialog container */
+}
+
+.selected-term {
+    background-color: white;
+    /* Add any other styles as needed to highlight the term */
+}
